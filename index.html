@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./main.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- main -->
+    <div class="main">
+      <img class="bottom-img" src="./images/bg1.png" alt="" />
+      <img class="vector" src="./images/bg2.png" alt="" />
+      <div class="main-container">
+        <div class="main-left">
+          <h1 class="main-title">
+            Учитесь в топовых университетах мира без стресса!”
+          </h1>
+          <p class="main-text">
+            Саидкарим помог десяткам студентов поступить в Италию, США и Европу.
+            Ваша очередь!
+          </p>
+          <img
+            class="responsive-img"
+            src="./images/Rectangle 111001297.png"
+            alt=""
+          />
+          <div class="row">
+            <img
+              src="./images/tick-circle.svg"
+              alt="./images/tick-circle.svg"
+              class="row-img"
+            />
+            <p class="row-text">Tолько для тех, кто готов действовать!</p>
+          </div>
+          <div class="row">
+            <img src="./images/timer.svg" alt="" class="row-img" />
+            <p class="row-text">
+              7 минут, чтобы узнать, как поступить за границу
+            </p>
+          </div>
+        </div>
+        <img src="./images/Rectangle 111001297.png" alt="" class="main-img" />
+      </div>
+    </div>
+    <!-- info -->
+    <div class="info">
+      <div class="info-container">
+        <div class="info-row">
+          <img src="./images/user.png" alt="" class="info-img" />
+          <p class="info-text">
+            Сотни студентов уже учатся в Италии, США и Европе с нашей помощью
+          </p>
+        </div>
+        <div class="info-row">
+          <img src="./images/timer.png" alt="" class="info-img" />
+          <p class="info-text">
+            За 1 час: выбор университета, гранты, виза – полный план под ключ!
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- slider -->
+    <div class="result">
+      <h2 class="result-title">Письма наших клиентов о</h2>
+      <h2 class="sub-title">поступлении в университет</h2>
+      <div class="slider">
+        <div class="slides">
+          <div class="slide">
+            <img src="./images/slider.png" alt="Image 1" />
+          </div>
+          <div class="slide">
+            <img src="./images/slider.png" alt="Image 2" />
+          </div>
+          <div class="slide">
+            <img src="./images/slider.png" alt="Image 3" />
+          </div>
+          <div class="slide">
+            <img src="./images/slider.png" alt="Image 3" />
+          </div>
+          <div class="slide">
+            <img src="./images/slider.png" alt="Image 3" />
+          </div>
+        </div>
+        <div class="pagination"></div>
+      </div>
+    </div>
+    <!-- price -->
+    <div class="price">
+      <div class="price-container">
+        <h2 class="price-title">
+          Получите чёткий план поступления <span>всего за 9$!</span>
+        </h2>
+        <p class="price-text">
+          Только сегодня консультация за 9$ вместо 100$! Узнайте, как поступить
+          в топовый университет и получить грант. Это дешевле простой обед, но
+          изменит ваше будущее!”
+        </p>
+        <div class="price-wrap">
+          <div class="price-box">
+            <div class="price-wrapper">
+              <div class="info-row">
+                <img src="./images/user.png" alt="" class="info-img" />
+                <p class="info-text">
+                  Сотни студентов уже учатся в Италии, США и Европе с нашей
+                  помощью
+                </p>
+              </div>
+              <div class="info-row">
+                <img src="./images/timer.png" alt="" class="info-img" />
+                <p class="info-text">
+                  За 1 час: выбор университета, гранты, виза – полный план под
+                  ключ!
+                </p>
+              </div>
+            </div>
+            <div class="price-time">
+              <p class="price-subtext">
+                До конца скидки на консультацию за <span>9$</span> осталось
+              </p>
+              <button class="price-btn" id="openModalBtn">59:24</button>
+            </div>
+          </div>
+          <div class="price-box">
+            <h3 class="price-subtitle">Заполните заявку</h3>
+            <form action="" class="price-form">
+              <div class="form-row">
+                <div class="price-form-box">
+                  <label for="name">Ваше имя</label> <br />
+                  <input type="text" name="" id="name" placeholder="Ibrohim" />
+                </div>
+                <div class="price-form-box">
+                  <label for="phone">Номер телефона</label> <br />
+                  <input
+                    type="phone"
+                    id="phone"
+                    placeholder="+998 99 842 79 79"
+                  />
+                </div>
+              </div>
+              <label for="country">Куда хотите поступить?</label> <br />
+              <div class="region-selector">
+                <label class="radio-option selected">
+                  <input
+                    type="radio"
+                    name="region"
+                    value="america"
+                    class="radio-input"
+                    checked
+                  />
+                  <span class="radio-label">Америка</span>
+                </label>
+
+                <label class="radio-option">
+                  <input
+                    type="radio"
+                    name="region"
+                    value="europe"
+                    class="radio-input"
+                  />
+                  <span class="radio-label">Европа</span>
+                </label>
+
+                <label class="radio-option">
+                  <input
+                    type="radio"
+                    name="region"
+                    value="other"
+                    class="radio-input"
+                  />
+                  <span class="radio-label">Другое</span>
+                </label>
+              </div>
+              <button class="form-btn" >
+                Забронировать консультацию за 9$
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <span class="close-btn" id="closeModalBtn">&times;</span>
+        <h2>Modal sarlavhasi</h2>
+        <p>Bu modal oynaning matni.</p>
+      </div>
+    </div>
+
+    <script src="./main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const radioOptions = document.querySelectorAll(".radio-option");
+        const radioInputs = document.querySelectorAll(".radio-input");
+
+        radioInputs.forEach((input) => {
+          input.addEventListener("change", function () {
+            // Remove selected class from all options
+            radioOptions.forEach((option) => {
+              option.classList.remove("selected");
+            });
+
+            // Add selected class to the parent of the checked input
+            if (this.checked) {
+              this.closest(".radio-option").classList.add("selected");
+            }
+          });
+        });
+
+        // Handle clicking on the entire option
+        radioOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            const input = this.querySelector(".radio-input");
+            input.checked = true;
+            input.dispatchEvent(new Event("change"));
+          });
+        
+        }
+    );
+      });
+
+      // modal
+      const openBtn = document.getElementById("openModalBtn");
+      const closeBtn = document.getElementById("closeModalBtn");
+      const overlay = document.getElementById("modalOverlay");
+
+      openBtn.addEventListener("click", () => {
+        overlay.classList.add("active");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        overlay.classList.remove("active");
+      });
+
+      // Qo'shimcha: overlay bosilganda yopish
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>
