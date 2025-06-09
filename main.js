@@ -72,3 +72,6 @@ let autoplayInterval = setInterval(autoplay, 3000);
 window.addEventListener('resize', () => {
   initSlider();
 });
+
+
+// modal

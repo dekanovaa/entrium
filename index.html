@@ -183,10 +183,49 @@
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal">
         <span class="close-btn" id="closeModalBtn">&times;</span>
-        <h2>Modal sarlavhasi</h2>
-        <p>Bu modal oynaning matni.</p>
+        <h2 class="modal-title">Забронируйте консультацию <span>прямо сейчас!</span></h2>
+        <div class="modal-row">
+           <div class="modal-box">
+            <img class="modal-img" src="./images/money-send.svg" alt="">
+            <p class="modal-text">Платёж безопасен</p>
+           </div>
+           <div class="modal-box">
+            <img class="modal-img" src="./images/information.svg" alt="">
+            <p class="modal-text">Места ограничены!</p>
+           </div>
+        </div>
+        <p class="modal-textt">
+            Чтобы получить консультацию, оплатите $9 (115 000 сум) на одну из следующих карт и загрузите чек на сайт!
+        </p>
+        <form action="" class="modal-form">
+            <label for="">Humo</label><br>
+            <input type="cart" placeholder="5614 6818 1353 7456"> <br>
+            <label for="">Visa</label> <br>
+            <input type="text" placeholder="5614 6818 1353 7456"> <br>
+            <hr>
+            <p class="form-text-sum">Сумма оплаты: 9$</p>
+            <p class="form-subtext">
+                Переведите 9$ на указанный номер карты и загрузите чек.
+            </p>
+            <div class="upload-area" id="uploadArea">
+                <input type="file" class="file-input" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png">
+                <img src="./images/document-upload.svg" alt="">        
+                <div class="upload-text">Загрузить чек оплаты (PDF, JPG, PNG)</div>
+            </div>
+            <div class="file-list" id="fileList"></div>
+            <button class="form-btn">Отправить чек и подтвердить</button>
+        </form>
+        <p class="modal-subtext">
+            У вас всё ещё есть вопросы!?
+        </p>
+        <button class="tg-btn"><img src="./images/ic_baseline-telegram.svg" alt="">Спросите через Telegram</button>
+        <button class="w-btn"><img src="./images/Group (1).svg" alt="">Спросите через WhatsApp</button>
+
       </div>
     </div>
+
+
+
 
     <script src="./main.js"></script>
     <script>
