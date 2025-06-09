@@ -75,7 +75,8 @@
     padding: 24px;
     border-radius: 16px;
     background-color: #FFFFFF;
-    z-index: 10;
+    z-index: 20;
+    position: relative;
 }
 
 .login-row {
@@ -191,6 +192,7 @@
         z-index: 25;
         background-color: #F5F5F5;
         border-radius: 12px;
+        position: relative;
     }
     .login-row{
         flex-direction: column;
@@ -201,6 +203,7 @@
 
     .login-btn{
         z-index: 100;
+        position: relative;
     }
     .login input{
         z-index: 100;
