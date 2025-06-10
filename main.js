@@ -74,4 +74,25 @@ window.addEventListener('resize', () => {
 });
 
 
-// modal
+// timer
+let timerElement = document.getElementById("timer");
+let timeInSeconds = 10 * 60; // 10 daqiqa
+
+function updateTimer() {
+  let minutes = Math.floor(timeInSeconds / 60);
+  let seconds = timeInSeconds % 60;
+
+  timerElement.textContent =
+    String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+
+  if (timeInSeconds > 0) {
+    timeInSeconds--;
+  } else {
+    clearInterval(timerInterval);
+    timerElement.textContent = "00:00";
+    // Shu yerda istasangiz: tugadi degan matn yoki boshqa funksiya qo‘shishingiz mumkin
+  }
+}
+
+let timerInterval = setInterval(updateTimer, 1000);
+
