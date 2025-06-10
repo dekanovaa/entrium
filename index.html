@@ -135,14 +135,16 @@
               <div class="form-row">
                 <div class="price-form-box">
                   <label for="name">Ваше имя</label> <br />
-                  <input type="text" name="" id="name" placeholder="Ibrohim" />
+                  <input type="text" name="name" id="name" placeholder="Ibrohim" required />
                 </div>
                 <div class="price-form-box">
                   <label for="phone">Номер телефона</label> <br />
                   <input
-                    type="phone"
-                    id="phone"
-                    placeholder="+998 99 842 79 79"
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="+998 99 842 79 79"
+                  required
                   />
                 </div>
               </div>
@@ -206,11 +208,15 @@
           Чтобы получить консультацию, оплатите $9 (115 000 сум) на одну из
           следующих карт и загрузите чек на сайт!
         </p>
-        <form action="" class="modal-form">
+        <form action="" class="modal-form" id="modalForm">
           <label for="">Humo</label><br />
-          <input type="cart" placeholder="5614 6818 1353 7456" /> <br />
+       <div class="cardNumber">
+        <input type="cart" placeholder="5614 6818 1353 7456" id="cardNumber"   value="5614 6818 1353 7456" readonly/><span onclick="copyCardNumber()" style="cursor: pointer;" class="copy-btn">📋</span> <br />
+       </div>
           <label for="">Visa</label> <br />
-          <input type="text" placeholder="5614 6818 1353 7456" /> <br />
+          <div class="cardNumber">
+            <input type="cart" placeholder="5614 6818 1353 7456" id="cardNumber"   value="5614 6818 1353 7456" readonly/><span onclick="copyCardNumber()" style="cursor: pointer;" class="copy-btn">📋</span> <br />
+           </div>
           <hr />
           <p class="form-text-sum">Сумма оплаты: 9$</p>
           <p class="form-subtext">
@@ -247,6 +253,15 @@
     
     <script src="./main.js"></script>
     <script>
+      // card copy
+      function copyCardNumber() {
+  const input = document.getElementById("cardNumber");
+  input.select();
+  input.setSelectionRange(0, 99999); // mobil qurilmalarda
+  document.execCommand("copy");
+
+}
+// 
       document.addEventListener("DOMContentLoaded", function () {
         const radioOptions = document.querySelectorAll(".radio-option");
         const radioInputs = document.querySelectorAll(".radio-input");
@@ -305,11 +320,26 @@ overlay.addEventListener("click", (e) => {
   }
 });
 const myForm = document.getElementById("myForm");
+document.querySelector('#myform').addEventListener('submit', function(e) {
+  e.preventDefault(); // form yuborilishini to'xtatadi
 
-myForm.addEventListener("submit", function (e) {
-  e.preventDefault(); // Forma serverga yuborilmasin
-  openModal(); // Modalni ochish
+  // Barcha inputlarni tekshirish
+  const inputs = this.querySelectorAll('input, textarea, select');
+  let isFilled = true;
+
+  inputs.forEach(input => {
+    if (input.value.trim() === '') {
+      isFilled = false;
+    }
+  });
+
+  if (isFilled) {
+    openModal(); // Modalni ochadi
+  } else {
+    alert("Iltimos, barcha maydonlarni to'ldiring!");
+  }
 });
+
 
     </script>
   </body>

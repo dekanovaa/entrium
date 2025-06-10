@@ -96,3 +96,62 @@ function updateTimer() {
 
 let timerInterval = setInterval(updateTimer, 1000);
 
+
+
+// form
+const fileInput = document.getElementById('file-input');
+const fileList = document.getElementById('file-list');
+fileInput.addEventListener('change', () => {
+  fileList.innerHTML = '';
+  Array.from(fileInput.files).forEach(file => {
+    const div = document.createElement('div');
+    div.textContent = file.name;
+    fileList.appendChild(div);
+  });
+});
+// Form yuborish
+const modalForm = document.getElementById('modalForm');
+modalForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const region = document.querySelector('input[name="region"]:checked').value;
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert('Iltimos, chekni yuklang!');
+    return;
+  }
+
+  // Google Formga ma'lumot yuborish
+  const formData = new FormData();
+  formData.append('entry.425806587', name); // O'zingizning entry ID bilan almashtiring
+  formData.append('entry.1625887631', phone); // O'zingizning entry ID bilan almashtiring
+  formData.append('entry.1370774814', region); // O'zingizning entry ID bilan almashtiring
+
+  try {
+    // Matnli ma'lumotlarni yuborish
+    await fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSch-54C8BzCVP74nBGRCtBfSusb_ACGuDDHF_g0GQyC10QTKA/formResponse', {
+      method: 'POST',
+      body: formData,
+      mode: 'no-cors'
+    });
+
+    // Faylni Google Drive y'a yuborish uchun Google API ishlatish kerak,
+    // lekin bu yerda Google Forms file upload qo'llab-quvvatlaydi
+    const fileFormData = new FormData();
+    fileFormData.append('entry.813980677', file); // Fayl uchun entry ID
+    await fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSch-54C8BzCVP74nBGRCtBfSusb_ACGuDDHF_g0GQyC10QTKA/formResponse', {
+      method: 'POST',
+      body: fileFormData,
+      mode: 'no-cors'
+    });
+
+    // Muvaffaqiyatli yuborilgandan so'ng
+    window.location.href = 'thankYou.html';
+  } catch (error) {
+    console.error('Xato:', error);
+    alert('Malumotlarni yuborishda xato yuz berdi.');
+  }
+});

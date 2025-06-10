@@ -848,6 +848,15 @@ hr {
     gap: 7px;
     justify-content: center;
 }
+.cardNumber{
+    position: relative;
+}
+.copy-btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+}
 
 @media(max-width:1200px) {
     .modal{
