@@ -21,12 +21,12 @@
             Ваша очередь!
           </p>
           <iframe
-          src="https://www.youtube.com/embed/DXF7asi_fLQ?autoplay=1&mute=1&si=qVL7K8QbwsocGOsf"
-          class="responsive-img"
-          frameborder="0"
-          allow="autoplay"
-        ></iframe>
-        
+            src="https://www.youtube.com/embed/DXF7asi_fLQ?autoplay=1&mute=1&si=qVL7K8QbwsocGOsf"
+            class="responsive-img"
+            frameborder="0"
+            allow="autoplay"
+          ></iframe>
+
           <div class="row">
             <img
               src="./images/tick-circle.svg"
@@ -43,12 +43,11 @@
           </div>
         </div>
         <iframe
-        src="https://www.youtube.com/embed/DXF7asi_fLQ?autoplay=1&mute=1&si=qVL7K8QbwsocGOsf"
-        class="main-img"
-        frameborder="0"
-        allow="autoplay"
-      ></iframe>
-      
+          src="https://www.youtube.com/embed/DXF7asi_fLQ?autoplay=1&mute=1&si=qVL7K8QbwsocGOsf"
+          class="main-img"
+          frameborder="0"
+          allow="autoplay"
+        ></iframe>
       </div>
     </div>
     <!-- info -->
@@ -135,7 +134,13 @@
               <div class="form-row">
                 <div class="price-form-box">
                   <label for="name">Ваше имя</label> <br />
-                  <input type="text" name="name" id="name" placeholder="Ibrohim" required />
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Ibrohim"
+                    required
+                  />
                 </div>
                 <div class="price-form-box">
                   <label for="phone">Номер телефона</label> <br />
@@ -181,7 +186,9 @@
                   <span class="radio-label">Другое</span>
                 </label>
               </div>
-              <button class="form-btn" id="openModalBtn" type="submit">Забронировать консультацию за 9$</button>
+              <button class="form-btn" id="openModalBtn" type="submit">
+                Забронировать консультацию за 9$
+              </button>
             </form>
           </div>
         </div>
@@ -210,13 +217,42 @@
         </p>
         <form action="" class="modal-form" id="modalForm">
           <label for="">Humo</label><br />
-       <div class="cardNumber">
-        <input type="cart" placeholder="5614 6818 1353 7456" id="cardNumber"   value="5614 6818 1353 7456" readonly/><span onclick="copyCardNumber()" style="cursor: pointer;" class="copy-btn">📋</span> <br />
-       </div>
+          <div class="cardNumber">
+            <input
+              type="cart"
+              placeholder="5614 6818 1353 7456"
+              id="cardNumber"
+              value="5614 6818 1353 7456"
+              readonly
+             
+            />
+            <span
+              onclick="copyCardNumber()"
+              style="cursor: pointer"
+              class="copy-btn"
+              >📋</span
+            >
+            <br />
+          </div>
           <label for="">Visa</label> <br />
           <div class="cardNumber">
-            <input type="cart" placeholder="5614 6818 1353 7456" id="cardNumber"   value="5614 6818 1353 7456" readonly/><span onclick="copyCardNumber()" style="cursor: pointer;" class="copy-btn">📋</span> <br />
-           </div>
+            <input
+              type="cart"
+              placeholder="5614 6818 1353 7456"
+              id="cardNumber"
+              value="5614 6818 1353 7456"
+           
+              readonly
+            />
+            <span
+              onclick="copyCardNumber()"
+              style="cursor: pointer"
+              class="copy-btn"
+             
+              >📋</span
+            >
+            <br />
+          </div>
           <hr />
           <p class="form-text-sum">Сумма оплаты: 9$</p>
           <p class="form-subtext">
@@ -224,6 +260,7 @@
           </p>
           <div class="upload-area" id="uploadArea">
             <input
+            required
               type="file"
               class="file-input"
               id="fileInput"
@@ -234,7 +271,8 @@
             <div class="upload-text">Загрузить чек оплаты (PDF, JPG, PNG)</div>
           </div>
           <div class="file-list" id="fileList"></div>
-          <button class="form-btn">Отправить чек и подтвердить</button>
+          <div class="error-message" id="errorMessage"></div>
+          <button class="form-btn" type="submit" id="submitBtn">Отправить чек и подтвердить</button>
         </form>
         <p class="modal-subtext">У вас всё ещё есть вопросы!?</p>
         <button class="tg-btn">
@@ -246,101 +284,44 @@
         </button>
       </div>
     </div>
-   
 
-
-
-    
     <script src="./main.js"></script>
     <script>
-      // card copy
-      function copyCardNumber() {
-  const input = document.getElementById("cardNumber");
-  input.select();
-  input.setSelectionRange(0, 99999); // mobil qurilmalarda
-  document.execCommand("copy");
-
-}
-// 
-      document.addEventListener("DOMContentLoaded", function () {
-        const radioOptions = document.querySelectorAll(".radio-option");
-        const radioInputs = document.querySelectorAll(".radio-input");
-
-        radioInputs.forEach((input) => {
-          input.addEventListener("change", function () {
-            // Remove selected class from all options
-            radioOptions.forEach((option) => {
-              option.classList.remove("selected");
-            });
-
-            // Add selected class to the parent of the checked input
-            if (this.checked) {
-              this.closest(".radio-option").classList.add("selected");
-            }
-          });
-        });
-
-        // Handle clicking on the entire option
-        radioOptions.forEach((option) => {
-          option.addEventListener("click", function (event) {
-            event.preventDefault(); // Har qanday default xatti-harakatni to‘xtatish
-
-            const input = this.querySelector(".radio-input");
-            if (!input.checked) {
-              input.checked = true;
-              input.dispatchEvent(new Event("change"));
-            }
-          });
-        });
-      });
-
       // modal
       const openBtn = document.getElementById("openModalBtn");
-const closeBtn = document.getElementById("closeModalBtn");
-const overlay = document.getElementById("modalOverlay");
+      const closeBtn = document.getElementById("closeModalBtn");
+      const overlay = document.getElementById("modalOverlay");
 
-// Modalni ochish funksiyasi
-function openModal() {
-  overlay.classList.add("active");
-}
+      // Modalni ochish funksiyasi
+      function openModal() {
+        overlay.classList.add("active");
+      }
 
-// Modalni yopish funksiyasi
-function closeModal() {
-  overlay.classList.remove("active");
-}
+      // Modalni yopish funksiyasi
+      function closeModal() {
+        overlay.classList.remove("active");
+      }
 
-// Tugmalar orqali ochish-yopish
-openBtn.addEventListener("click", openModal);
-closeBtn.addEventListener("click", closeModal);
+      // Tugmalar orqali ochish-yopish
+      closeBtn.addEventListener("click", closeModal);
 
-// Overlay bo'sh joyiga bosilganda yopish
-overlay.addEventListener("click", (e) => {
-  if (e.target === overlay) {
-    closeModal();
-  }
-});
-const myForm = document.getElementById("myForm");
-document.querySelector('#myform').addEventListener('submit', function(e) {
-  e.preventDefault(); // form yuborilishini to'xtatadi
+      // Overlay bo'sh joyiga bosilganda yopish
+      overlay.addEventListener("click", closeModal);
+  
 
-  // Barcha inputlarni tekshirish
-  const inputs = this.querySelectorAll('input, textarea, select');
-  let isFilled = true;
-
-  inputs.forEach(input => {
-    if (input.value.trim() === '') {
-      isFilled = false;
+      document.addEventListener('DOMContentLoaded', () => {
+  window.copyCardNumber = async function() {
+    try {
+      const input = document.getElementById('cardNumber');
+      if (!input) {
+        throw new Error('Input with ID "cardNumber" not found');
+      }
+      await navigator.clipboard.writeText(input.value);
+    } catch (err) {
+      console.error('Ошибка копирования:', err);
     }
-  });
-
-  if (isFilled) {
-    openModal(); // Modalni ochadi
-  } else {
-    alert("Iltimos, barcha maydonlarni to'ldiring!");
-  }
+  };
 });
-
-
     </script>
   </body>
 </html>

@@ -98,60 +98,176 @@ let timerInterval = setInterval(updateTimer, 1000);
 
 
 
-// form
-const fileInput = document.getElementById('file-input');
-const fileList = document.getElementById('file-list');
-fileInput.addEventListener('change', () => {
+// form 
+const modal = document.getElementById('modalOverlay');
+const openModalBtn = document.getElementById('openModalBtn');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const myForm = document.getElementById('myForm');
+const modalForm = document.getElementById('modalForm');
+const fileInput = document.getElementById('fileInput');
+const fileList = document.getElementById('fileList');
+const uploadArea = document.getElementById('uploadArea');
+const errorMessage = document.getElementById('errorMessage');
+const submitBtn = document.getElementById('submitBtn');
+let formData = {};
+
+// Initialize selected radio option
+function updateSelectedRadio() {
+  document.querySelectorAll('.radio-option').forEach(option => {
+    option.classList.remove('selected');
+    if (option.querySelector('.radio-input').checked) {
+      option.classList.add('selected');
+    }
+  });
+}
+
+// Set initial selected state
+updateSelectedRadio();
+
+// Add event listeners to radio inputs
+document.querySelectorAll('.radio-input').forEach(input => {
+  input.addEventListener('change', updateSelectedRadio);
+});
+
+function openModal() {
+  modal.classList.add('show');
+  modal.querySelector('input, button').focus();
+}
+
+function closeModal() {
+  modal.classList.remove('show');
+  setTimeout(() => (modal.style.display = 'none'), 300);
+}
+
+
+
+function displayFiles(files) {
   fileList.innerHTML = '';
-  Array.from(fileInput.files).forEach(file => {
+  if (files.length > 0) {
+    const file = files[0];
     const div = document.createElement('div');
     div.textContent = file.name;
     fileList.appendChild(div);
-  });
+  }
+}
+
+function validateFile(file) {
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+  if (!allowedTypes.includes(file.type)) {
+    errorMessage.textContent = 'Допустимы только PDF, JPG или PNG файлы.';
+    return false;
+  }
+  if (file.size > maxSize) {
+    errorMessage.textContent = 'Файл слишком большой (макс. 5MB).';
+    return false;
+  }
+  errorMessage.textContent = '';
+  return true;
+}
+
+fileInput.addEventListener('change', () => {
+  if (fileInput.files.length > 0 && validateFile(fileInput.files[0])) {
+    displayFiles(fileInput.files);
+  } else {
+    fileInput.value = '';
+    fileList.innerHTML = '';
+  }
 });
-// Form yuborish
-const modalForm = document.getElementById('modalForm');
+
+uploadArea.addEventListener('click', () => fileInput.click());
+
+['dragenter', 'dragover'].forEach(eventName => {
+  uploadArea.addEventListener(eventName, () => uploadArea.classList.add('dragover'), false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+  uploadArea.addEventListener(eventName, () => uploadArea.classList.remove('dragover'), false);
+});
+
+uploadArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if (file && validateFile(file)) {
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(file);
+    fileInput.files = dataTransfer.files;
+    displayFiles(fileInput.files);
+  }
+});
+
+function trapFocus(modal) {
+  const focusableElements = modal.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+
+  modal.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement.focus();
+      } else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement.focus();
+      }
+    }
+  });
+}
+
+myForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (myForm.checkValidity()) {
+    formData = {
+      name: document.getElementById('name').value,
+      phone: document.getElementById('phone').value,
+      region: document.querySelector('input[name="region"]:checked').value
+    };
+    modal.style.display = 'flex';
+    setTimeout(() => openModal(), 10);
+    trapFocus(modal);
+  } else {
+    myForm.reportValidity();
+  }
+});
+
 modalForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-
-  const name = document.getElementById('name').value;
-  const phone = document.getElementById('phone').value;
-  const region = document.querySelector('input[name="region"]:checked').value;
-  const file = fileInput.files[0];
-
-  if (!file) {
-    alert('Iltimos, chekni yuklang!');
+  if (fileInput.files.length === 0) {
+    errorMessage.textContent = 'Пожалуйста, загрузите чек оплаты.';
     return;
   }
 
-  // Google Formga ma'lumot yuborish
-  const formData = new FormData();
-  formData.append('entry.425806587', name); // O'zingizning entry ID bilan almashtiring
-  formData.append('entry.1625887631', phone); // O'zingizning entry ID bilan almashtiring
-  formData.append('entry.1370774814', region); // O'zingizning entry ID bilan almashtiring
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Отправка...';
+
+  const googleFormUrl = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSch-54C8BzCVP74nBGRCtBfSusb_ACGuDDHF_g0GQyC10QTKA/formResponse';
+  const formDataToSend = new FormData();
+  formDataToSend.append('entry.425806587', formData.name);
+  formDataToSend.append('entry.1625887631', formData.phone);
+  formDataToSend.append('entry.1370774814', formData.region);
+  formDataToSend.append('entry.813980677', fileInput.files[0].name);
 
   try {
-    // Matnli ma'lumotlarni yuborish
-    await fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSch-54C8BzCVP74nBGRCtBfSusb_ACGuDDHF_g0GQyC10QTKA/formResponse', {
+    console.log('Submitting to Google Form:', Object.fromEntries(formDataToSend));
+    await fetch(googleFormUrl, {
       method: 'POST',
-      body: formData,
-      mode: 'no-cors'
+      mode: 'no-cors',
+      body: formDataToSend
     });
-
-    // Faylni Google Drive y'a yuborish uchun Google API ishlatish kerak,
-    // lekin bu yerda Google Forms file upload qo'llab-quvvatlaydi
-    const fileFormData = new FormData();
-    fileFormData.append('entry.813980677', file); // Fayl uchun entry ID
-    await fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSch-54C8BzCVP74nBGRCtBfSusb_ACGuDDHF_g0GQyC10QTKA/formResponse', {
-      method: 'POST',
-      body: fileFormData,
-      mode: 'no-cors'
-    });
-
-    // Muvaffaqiyatli yuborilgandan so'ng
-    window.location.href = 'thankYou.html';
+    setTimeout(() => {
+      window.location.href = './thankYou.html';
+    }, 1000);
   } catch (error) {
-    console.error('Xato:', error);
-    alert('Malumotlarni yuborishda xato yuz berdi.');
+    console.error('Error submitting to Google Form:', error);
+    errorMessage.textContent = 'Ошибка при отправке формы. Пожалуйста, попробуйте снова.';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Отправить чек и подтвердить';
+  }
+});
+
+closeModalBtn.addEventListener('click', closeModal);
+window.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    closeModal();
   }
 });

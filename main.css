@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 .main {
@@ -523,6 +524,7 @@ label {
     border-radius: 50%;
     background-color: #1F94FF;
 }
+.radio-option.selected { background-color: #1F94FF; color: white; }
 
 .radio-label {
     font-size: 16px;
@@ -857,6 +859,11 @@ hr {
     right: 10px;
 
 }
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
 
 @media(max-width:1200px) {
     .modal{
